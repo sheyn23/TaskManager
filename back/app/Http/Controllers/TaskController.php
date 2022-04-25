@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use App\Models\Task;
 use App\Http\Resources\TaskResource;
 use App\Http\Requests\TaskRequest;
@@ -101,19 +102,19 @@ class TaskController extends Controller
      */
     public function getPaginatedTasks(PaginateRequest $request)
     {
-        if ($request->priority != '') {
-            $task = Task::orderBy('created_at', $request->sortedBy)
+        if (count($request->priority) != 0) {
+            $task = DB::table('tasks')->orderBy('created_at', $request->sortedBy)
                         ->whereJsonContains('marks', $request->marks)
-                        ->where('priority', $request->priority)
-                        ->skip($request->start)
-                        ->take($request->count)
+                        // ->whereIn('priority', $request->priority)
+                        // ->skip($request->start)
+                        // ->take($request->count)
                         ->get();
         } else {
-            $task = Task::orderBy('created_at', $request->sortedBy)
-                        ->whereJsonContains('marks', $request->marks)
-                        ->skip($request->start)
-                        ->take($request->count)
-                        ->get();
+            // $task = DB::table('tasks')->orderBy('created_at', $request->sortedBy)
+            //             ->whereIn('marks', ["design", "development"])
+            //             // ->skip($request->start)
+            //             // ->take($request->count)
+            //             ->get();
         }
 
         return TaskResource::collection($task);

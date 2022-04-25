@@ -2,25 +2,30 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ManagerModule } from './view/manager/manager.module';
 import { AppRoutingModule } from './app-routing.module';
+import { EditModule } from './view/edit/edit.module';
+import { TaskModule } from './view/task/task.module';
+import { ErrorPageModule } from './view/error-page/error-page.module';
 
 import { AppComponent } from './app.component';
-import { EditComponent } from './view/edit/edit.component';
-import { TaskComponent } from './view/task/task.component';
-import { ErrorPageComponent } from './view/error-page/error-page.component';
+import { DataService } from './share/services/data.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EditComponent,
-    TaskComponent,
-    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ManagerModule
+    ManagerModule,
+    EditModule,
+    TaskModule,
+    ErrorPageModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

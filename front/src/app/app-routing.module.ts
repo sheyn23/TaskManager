@@ -6,11 +6,25 @@ import { ManagerComponent } from './view/manager/manager.component';
 import { TaskComponent } from './view/task/task.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/manager', pathMatch: 'full' },
-  { path: 'manager', component: ManagerComponent, loadChildren: () => import('./view/manager/manager.module').then(m => m.ManagerModule) },
-  { path: 'edit/{id}', component: EditComponent },
-  { path: 'task/{id}', component: TaskComponent },
-  { path: '**', component: ErrorPageComponent }
+  {
+    path: '', redirectTo: '/manager', pathMatch: 'full'
+  },
+  {
+    path: 'manager', component: ManagerComponent,
+    loadChildren: () => import('./view/manager/manager.module').then(m => m.ManagerModule)
+  },
+  {
+    path: 'edit/:id', component: EditComponent,
+    loadChildren: () => import('./view/edit/edit.module').then(m => m.EditModule)
+  },
+  {
+    path: 'task/:id', component: TaskComponent,
+    loadChildren: () => import('./view/task/task.module').then(m => m.TaskModule)
+  },
+  {
+    path: '**', component: ErrorPageComponent,
+    loadChildren: () => import('./view/error-page/error-page.module').then(m => m.ErrorPageModule)
+  }
 ];
 
 @NgModule({
