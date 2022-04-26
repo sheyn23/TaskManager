@@ -1,13 +1,13 @@
 import { Guid } from 'guid-typescript';
 
 export class DtoTask {
-    
+
     public id: Guid;
     public name: string;
     public description: string;
     public priority: string[];
     public marks: string[];
-    public timestamp?: Date;
+    public createdAt: Date;
 
     constructor(response: DtoTask) {
         this.id = response.id;
@@ -15,6 +15,6 @@ export class DtoTask {
         this.description = response.description;
         this.priority = response.priority
         this.marks = response.marks
-        this.timestamp = response.timestamp
+        this.createdAt = response.createdAt
     }
 }

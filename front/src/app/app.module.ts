@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ManagerModule } from './view/manager/manager.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,9 +10,14 @@ import { AppComponent } from './app.component';
 import { DataService } from './share/services/data.service';
 import { HttpClientModule } from '@angular/common/http';
 
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu);
+
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-    DataService
+    DataService,
+    { provide: LOCALE_ID, useValue: "ru" },
   ],
   bootstrap: [AppComponent]
 })

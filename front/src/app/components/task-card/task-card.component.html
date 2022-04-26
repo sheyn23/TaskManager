@@ -1,3 +1,7 @@
 <div class="card holder">
-    <p>{{task.name}}</p>
+    <p class="title">{{task.name}}</p>
+    <!-- TODO: create_at -->
+    <p>Создано: {{task.createdAt | timeStatus }}</p>
+    <p>Приоритет: {{task.priority}}</p>
+    <p>Отметки: <span *ngFor="let mark of task.marks">{{mark}}</span></p>
 </div>

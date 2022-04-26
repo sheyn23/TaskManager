@@ -3,10 +3,19 @@
 </header>
 <main>
     <aside>
-        <form action="">
+        <form action="" [formGroup]="filterForm">
             <div class="holder">
                 <div class="form-group">
                     <p class="title">Сортировка</p>
+                    <label for="asc">
+                        <input id="asc" type="radio" value="asc" name="sortedBy" formControlName="sortedBy">
+                        Сначала новые
+                    </label>
+                    <br>
+                    <label for="desc">
+                        <input id="desc" type="radio" value="desc" name="sortedBy" formControlName="sortedBy">
+                        Сначала старые
+                    </label>
                 </div>
             </div>
             <div class="holder">

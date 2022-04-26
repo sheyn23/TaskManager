@@ -103,14 +103,14 @@ class TaskController extends Controller
     public function getPaginatedTasks(PaginateRequest $request)
     {
         if (count($request->priority) != 0) {
-            $task = DB::table('tasks')->orderBy('created_at', $request->sortedBy)
+            $task = Task::orderBy('created_at', $request->sortedBy)
                         ->whereJsonContains('marks', $request->marks)
                         ->whereIn('priority', $request->priority)
                         ->skip($request->start)
                         ->take($request->count)
                         ->get();
         } else {
-            $task = DB::table('tasks')->orderBy('created_at', $request->sortedBy)
+            $task = Task::orderBy('created_at', $request->sortedBy)
                         ->whereJsonContains('marks', $request->marks)
                         ->skip($request->start)
                         ->take($request->count)
