@@ -105,16 +105,16 @@ class TaskController extends Controller
         if (count($request->priority) != 0) {
             $task = DB::table('tasks')->orderBy('created_at', $request->sortedBy)
                         ->whereJsonContains('marks', $request->marks)
-                        // ->whereIn('priority', $request->priority)
-                        // ->skip($request->start)
-                        // ->take($request->count)
+                        ->whereIn('priority', $request->priority)
+                        ->skip($request->start)
+                        ->take($request->count)
                         ->get();
         } else {
-            // $task = DB::table('tasks')->orderBy('created_at', $request->sortedBy)
-            //             ->whereIn('marks', ["design", "development"])
-            //             // ->skip($request->start)
-            //             // ->take($request->count)
-            //             ->get();
+            $task = DB::table('tasks')->orderBy('created_at', $request->sortedBy)
+                        ->whereJsonContains('marks', $request->marks)
+                        ->skip($request->start)
+                        ->take($request->count)
+                        ->get();
         }
 
         return TaskResource::collection($task);

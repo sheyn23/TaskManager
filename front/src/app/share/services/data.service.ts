@@ -14,8 +14,8 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   //Task
-  getTasks(data: DtoRequestTask): Observable<TaskManagerResponse<DtoTask>> {
-    return this.http.post<TaskManagerResponse<DtoTask>>(`${environment.apiUrl}/tasks/get-paginated-tasks`, data);
+  getTasks(data: DtoRequestTask): Observable<TaskManagerResponse<DtoTask[]>> {
+    return this.http.post<TaskManagerResponse<DtoTask[]>>(`${environment.apiUrl}/get-paginated-tasks`, data);
   }
 
   getTask(id: Guid): Observable<TaskManagerResponse<DtoTask>> {
@@ -31,6 +31,6 @@ export class DataService {
   }
 
   delete(id: Guid) {
-    return this.http.delete(`${environment.apiUrl}/task/${id}`);
+    return this.http.delete(`${environment.apiUrl}/tasks/${id}`);
   }
 }

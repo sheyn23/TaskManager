@@ -45,10 +45,6 @@ export class TaskComponent implements OnInit, OnDestroy {
       .subscribe((response: TaskManagerResponse<DtoTask>) => {
         if (!!response) {
           this.task = response.data;
-          // if (response["status"] == 0) {
-          // } else {
-          //   alert(response["errorInfo"]["details"]);
-          // }
         } else {
           alert("Ошибка выполнения запроса");
         }
