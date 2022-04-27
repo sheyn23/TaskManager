@@ -53,4 +53,10 @@ export class TaskComponent implements OnInit, OnDestroy {
       });
   }
 
+  deleteTask(): void {
+    this.dataService.delete(this.task.id).subscribe(() => {
+      console.log('was deleted!');
+      this.router.navigate(['/manager'])
+    })
+  }
 }

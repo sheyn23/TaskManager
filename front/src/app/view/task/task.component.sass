@@ -1,0 +1,36 @@
+main
+    grid-gap: 0
+
+    .buttons
+        grid-column: 1/13
+        display: flex
+        justify-content: space-between
+        margin-bottom: 20px
+
+        button
+
+            &.back
+                background: #ffffff
+                border: 2px solid #ededef
+
+                &:hover
+                    background: #ededef
+
+            &.edit
+                background: #0091dc
+                color: #fff
+                margin-left: 20px
+
+                &:hover
+                    background: #0077b3
+
+            &.delete
+                background: #f34949
+                color: #fff
+                margin-left: auto
+
+                &:hover
+                    background: #db4141
+
+    .holder
+        grid-column: 1/13

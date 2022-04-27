@@ -1,5 +1,14 @@
-<p>{{task?.id}}</p>
-<p>{{task?.name}}</p>
-<p>{{task?.description}}</p>
-<p>{{task?.marks}}</p>
-<p>{{task?.priority}}</p>
+<main>
+    <div class="buttons" *ngIf="task">
+        <button class="back" routerLink="/manager">Назад</button>
+        <button class="edit" [routerLink]="'/edit/'+task.id">Редактировать</button>
+        <button class="delete" (click)="deleteTask()">Удалить</button>
+    </div>
+    <div class="holder">
+        <p>{{task?.id}}</p>
+        <p>{{task?.name}}</p>
+        <p>{{task?.description}}</p>
+        <p>{{task?.marks}}</p>
+        <p>{{task?.priority}}</p>
+    </div>
+</main>

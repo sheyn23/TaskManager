@@ -43,7 +43,7 @@ export class ManagerComponent implements OnInit {
   }
 
   private getTasks() {
-    let subject = new Subject<any>();
+    let subject = new Subject<DtoTask[]>();
 
     this.dataService.getTasks({
       ...this.filterForm.getRawValue(),

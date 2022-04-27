@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskComponent } from './task.component';
-import { DataService } from 'src/app/share/services/data.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -9,6 +9,7 @@ import { DataService } from 'src/app/share/services/data.service';
   ],
   imports: [
     CommonModule,
+    RouterModule
   ],
   exports: [
     CommonModule,

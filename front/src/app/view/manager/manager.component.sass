@@ -1,78 +1,54 @@
-h1
-    text-align: center
-    font-weight: normal
-    font-size: 46px
-    margin: 50px 0
 
-    @media screen and (max-width: 500px)
-        font-size: 34px
-        margin: 25px 0
+aside
+    grid-column: 1/4
 
-main
-    max-width: 1600px
-    padding: 0 20px
-    width: 100%
-    margin: 0 auto
-    display: grid
-    grid-template-columns: repeat(12, 1fr)
-    grid-gap: 20px
+    @media screen and (max-width: 1000px)
+        grid-column: 1/5
+
+    .holder
+        @media screen and (max-width: 750px)
+            display: flex
+            justify-content: space-between
+
+        .title
+            color: #939393
+            text-transform: uppercase
+            font-weight: bold
+            font-size: 18px
+            margin-bottom: 10px
+
+            @media screen and (max-width: 750px)
+                font-size: 16px
+
+        label
+            color: #404040
+
+            @media screen and (max-width: 750px)
+                font-size: 14px
+                font-weight: 500
+
+        &:last-child .form-group:first-child
+            margin-bottom: 32px
+
+            @media screen and (max-width: 750px)
+                margin-bottom: 0
+
+.task-list
+    grid-column: 4/13
+
+    @media screen and (max-width: 1000px)
+        grid-column: 5/13
 
     @media screen and (max-width: 750px)
-        grid-template-columns: repeat(4, 1fr)
+        grid-column: 1/5
 
-    aside
-        grid-column: 1/4
+    button
+        background: #0091dc
+        color: #fff
+        margin-bottom: 20px
 
-        @media screen and (max-width: 1000px)
-            grid-column: 1/5
+        &:hover
+            background: #0077b3
 
-        .holder
-            @media screen and (max-width: 750px)
-                display: flex
-                justify-content: space-between
-
-            .title
-                color: #939393
-                text-transform: uppercase
-                font-weight: bold
-                font-size: 18px
-                margin-bottom: 10px
-
-                @media screen and (max-width: 750px)
-                    font-size: 16px
-
-            label
-                color: #404040
-
-                @media screen and (max-width: 750px)
-                    font-size: 14px
-                    font-weight: 500
-
-            &:last-child .form-group:first-child
-                margin-bottom: 32px
-
-                @media screen and (max-width: 750px)
-                    margin-bottom: 0
-
-    .task-list
-        grid-column: 4/13
-
-        @media screen and (max-width: 1000px)
-            grid-column: 5/13
-
-        @media screen and (max-width: 750px)
-            grid-column: 1/5
-
-        button
-            padding: 20px
-            background: #0091dc
-            color: #fff
-            font-size: 18px
-            border-radius: 5px
-            border: none
-            outline: none
-            cursor: pointer
-            margin-bottom: 20px
-
-            &:hover
-                background: #0077b3
+        @media screen and (max-width: 500px)
+            width: 100%
