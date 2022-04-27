@@ -7,30 +7,55 @@
             <div class="holder">
                 <div class="form-group">
                     <p class="title">Сортировка</p>
-                    <label for="asc">
-                        <input id="asc" type="radio" value="asc" name="sortedBy" formControlName="sortedBy">
+                    <label for="desc">
+                        <input id="desc" type="radio" value="desc" name="sortedBy" formControlName="sortedBy">
                         Сначала новые
                     </label>
                     <br>
-                    <label for="desc">
-                        <input id="desc" type="radio" value="desc" name="sortedBy" formControlName="sortedBy">
+                    <label for="asc">
+                        <input id="asc" type="radio" value="asc" name="sortedBy" formControlName="sortedBy">
                         Сначала старые
                     </label>
+
                 </div>
             </div>
             <div class="holder">
                 <div class="form-group">
                     <p class="title">Приоритет</p>
+                    <label>
+                        <input type="checkbox" value="low" (change)="onCheckChange($event, 'priority')">
+                        Low
+                    </label><br>
+                    <label>
+                        <input type="checkbox" value="normal" (change)="onCheckChange($event, 'priority')">
+                        Normal
+                    </label><br>
+                    <label>
+                        <input type="checkbox" value="high" (change)="onCheckChange($event, 'priority')">
+                        High
+                    </label>
                 </div>
                 <div class="form-group">
                     <p class="title">Отметка</p>
+                    <label>
+                        <input type="checkbox" value="research" (change)="onCheckChange($event, 'marks')">
+                        Research
+                    </label><br>
+                    <label>
+                        <input type="checkbox" value="design" (change)="onCheckChange($event, 'marks')">
+                        Design
+                    </label><br>
+                    <label>
+                        <input type="checkbox" value="development" (change)="onCheckChange($event, 'marks')">
+                        Development
+                    </label>
                 </div>
             </div>
         </form>
     </aside>
     <section class="task-list">
         <button>Добавить задачу</button>
-        <div class="tasks">
+        <div class="tasks" #tasksRef>
             <app-task-card *ngFor="let task of tasks" [task]="task" [routerLink]="'/task/'+task.id"></app-task-card>
         </div>
     </section>

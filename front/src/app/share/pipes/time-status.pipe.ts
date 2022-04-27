@@ -35,9 +35,7 @@ export class TimeStatusPipe implements PipeTransform {
       return `${diffMin} мин. назад`
     } else if (diffDay < 1) {
       return `${diffHour} часа назад`
-    }
-
-    else {
+    } else {
       return this.datePipe.transform(date, 'dd MMMM yyyy, HH:mm');
     }
   }
