@@ -22,8 +22,8 @@ export class DataService {
     return this.http.get<TaskManagerResponse<DtoTask>>(`${environment.apiUrl}/tasks/${id}`);
   }
 
-  add(data: DtoTask): Observable<TaskManagerResponse<DtoTask[]>> {
-    return this.http.post<TaskManagerResponse<DtoTask[]>>(`${environment.apiUrl}/tasks`, data);
+  add(data: DtoTask): Observable<TaskManagerResponse<DtoTask>> {
+    return this.http.post<TaskManagerResponse<DtoTask>>(`${environment.apiUrl}/tasks`, data);
   }
 
   update(data: DtoTask): Observable<TaskManagerResponse<DtoTask>> {

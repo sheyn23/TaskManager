@@ -1,0 +1,47 @@
+main
+    grid-gap: 0
+
+    button
+        &.back
+            background: #ffffff
+            border: 2px solid #ededef
+            margin-bottom: 20px
+
+            &:hover
+                background: #ededef
+
+    .holder
+        grid-column: 1/13
+
+        .form-group
+            &:not(:last-child)
+                margin-bottom: 30px
+
+            label
+                text-transform: uppercase
+                color: #8a8a8a
+                font-size: 16px
+                font-weight: 500
+                margin-bottom: 10px
+
+            .form-control
+                padding: 10px
+                border-radius: 5px
+                outline: none
+                border: 2px solid #ededef
+                background: #ffffff
+
+                &.name
+                    width: 100%
+
+                &.description
+                    width: 100%
+        .save
+            background: #0091dc
+            color: #fff
+
+            &:hover
+                background: #0077b3
+
+            @media screen and (max-width: 500px)
+                width: 100%

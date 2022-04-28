@@ -27,7 +27,6 @@ class TaskRequest extends FormRequest
             'name' => 'required|max:255',
             'description' => 'max:255',
             'priority' => 'required',
-            'marks' => 'required',
         ];
     }
 }

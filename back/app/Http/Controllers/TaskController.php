@@ -40,9 +40,17 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        $createdTasks = Task::create($request->validated());
+        // $createdTasks = Task::create($request->validated());
 
-        return new TaskResource($createdTasks);
+        $task = new Task;
+        $task->name = $request->name;
+        $task->priority = $request->priority;
+        $task->marks = json_decode($request->marks);
+        $task->description = $request->description;
+
+        $task->save();
+
+        return new TaskResource($task);
     }
 
     /**
@@ -76,6 +84,14 @@ class TaskController extends Controller
      */
     public function update(TaskRequest $request, Task $task)
     {
+        // $task = new Task;
+        // $task->name = $request->name;
+        // $task->priority = $request->priority;
+        // $task->marks = json_decode($request->marks);
+        // $task->description = $request->description;
+
+        // $task->save();
+
         $task->update($request->validated());
 
         return $task;

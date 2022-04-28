@@ -10,13 +10,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    EditRoutingModule
-  ],
-  exports: [
-    CommonModule,
-    EditComponent,
+    EditRoutingModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    EditComponent,
   ],
 })
 export class EditModule { }

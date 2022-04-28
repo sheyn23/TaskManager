@@ -7,7 +7,12 @@ main
         justify-content: space-between
         margin-bottom: 20px
 
+        @media screen and (max-width: 455px)
+            flex-direction: column
+
         button
+            @media screen and (max-width: 455px)
+                width: 100%
 
             &.back
                 background: #ffffff
@@ -16,6 +21,9 @@ main
                 &:hover
                     background: #ededef
 
+                @media screen and (max-width: 455px)
+                    margin-bottom: 20px
+
             &.edit
                 background: #0091dc
                 color: #fff
@@ -23,6 +31,10 @@ main
 
                 &:hover
                     background: #0077b3
+
+                @media screen and (max-width: 455px)
+                    margin-left: 0
+                    margin-bottom: 20px
 
             &.delete
                 background: #f34949

@@ -12,7 +12,6 @@ import { RouterModule } from '@angular/router';
     RouterModule
   ],
   exports: [
-    CommonModule,
     TaskComponent
   ],
 })
