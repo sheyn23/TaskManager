@@ -14,7 +14,7 @@ const routes: Routes = [
     loadChildren: () => import('./view/manager/manager.module').then(m => m.ManagerModule)
   },
   {
-    path: 'edit/:id', component: EditComponent,
+    path: 'edit', component: EditComponent,
     loadChildren: () => import('./view/edit/edit.module').then(m => m.EditModule)
   },
   {

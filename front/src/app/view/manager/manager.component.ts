@@ -48,7 +48,7 @@ export class ManagerComponent implements OnInit {
     this.dataService.getTasks({
       ...this.filterForm.getRawValue(),
       start: this.tasks.length,
-      count: 6
+      count: 15
     }).subscribe((response: TaskManagerResponse<DtoTask[]>) => {
       if (!!response) {
         this.tasks.push(...response.data);

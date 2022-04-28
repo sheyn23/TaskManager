@@ -51,7 +51,7 @@
         </form>
     </aside>
     <section class="task-list">
-        <button>Добавить задачу</button>
+        <button routerLink="/edit">Добавить задачу</button>
         <div class="tasks" #tasksRef>
             <app-task-card *ngFor="let task of tasks" [task]="task" [routerLink]="'/task/'+task.id"></app-task-card>
         </div>
