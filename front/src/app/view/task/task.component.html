@@ -1,6 +1,6 @@
 <main *ngIf="task">
     <div class="buttons">
-        <button class="back" routerLink="/manager">Назад</button>
+        <button class="back" (click)="goBack()">Назад</button>
         <button class="edit" [routerLink]="'/edit/'+task.id">Редактировать</button>
         <button class="delete" (click)="deleteTask()">Удалить</button>
     </div>

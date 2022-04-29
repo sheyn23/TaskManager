@@ -40,8 +40,6 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        // $createdTasks = Task::create($request->validated());
-
         $task = new Task;
         $task->name = $request->name;
         $task->priority = $request->priority;
@@ -50,7 +48,10 @@ class TaskController extends Controller
 
         $task->save();
 
-        return new TaskResource($task);
+        return response()->json([
+            "status" => true,
+            "data" => new TaskResource($task)
+        ])->setStatusCode(200);
     }
 
     /**
@@ -82,19 +83,20 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TaskRequest $request, Task $task)
+    public function update(TaskRequest $request)
     {
-        // $task = new Task;
-        // $task->name = $request->name;
-        // $task->priority = $request->priority;
-        // $task->marks = json_decode($request->marks);
-        // $task->description = $request->description;
+        $task = Task::where('id', $request->id)->first();
+        $task->name = $request->name;
+        $task->priority = $request->priority;
+        $task->marks = json_decode($request->marks);
+        $task->description = $request->description;
 
-        // $task->save();
+        $task->save();
 
-        $task->update($request->validated());
-
-        return $task;
+        return response()->json([
+            "status" => true,
+            "data" => new TaskResource($task)
+        ])->setStatusCode(200);
     }
 
     /**
@@ -133,6 +135,9 @@ class TaskController extends Controller
                         ->get();
         }
 
-        return TaskResource::collection($task);
+        return response()->json([
+            "status" => true,
+            "data" => TaskResource::collection($task)
+        ])->setStatusCode(200);
     }
 }

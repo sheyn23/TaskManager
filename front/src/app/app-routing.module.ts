@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EditComponent } from './view/edit/edit.component';
 import { ErrorPageComponent } from './view/error-page/error-page.component';
 import { ManagerComponent } from './view/manager/manager.component';
-import { TaskComponent } from './view/task/task.component';
 
 const routes: Routes = [
   {
@@ -18,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./view/edit/edit.module').then(m => m.EditModule)
   },
   {
-    path: 'task/:id', component: TaskComponent,
+    path: 'task',
     loadChildren: () => import('./view/task/task.module').then(m => m.TaskModule)
   },
   {
@@ -28,7 +26,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

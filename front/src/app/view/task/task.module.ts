@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskComponent } from './task.component';
 import { RouterModule } from '@angular/router';
+import { TaskRoutingModule } from './task-routing.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    TaskRoutingModule
   ],
   exports: [
     TaskComponent

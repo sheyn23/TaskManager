@@ -1,5 +1,5 @@
 <main>
-    <button class="back" routerLink="/manager">Назад</button>
+    <button class="back" (click)="goBack()">Назад</button>
     <div class="holder">
         <form [formGroup]="taskForm">
             <div class="form-group">
@@ -16,10 +16,10 @@
             </div>
             <div class="form-group">
                 <label>Название задачи</label> <br>
-                <select name="marks" class="form-control marks" multiple size="3" id="marks">
-                    <option value="research">research</option>
-                    <option value="design">design</option>
-                    <option value="development">development</option>
+                <select name="marks" class="form-control marks" multiple size="3" formControlName="marks" id="marks">
+                    <option value="research" [ngValue]="'research'">research</option>
+                    <option value="design" [ngValue]="'design'">design</option>
+                    <option value="development" [ngValue]="'development'">development</option>
                 </select>
             </div>
             <div class="form-group">
@@ -28,6 +28,7 @@
                     id="description" rows="10"></textarea>
             </div>
             <button class="save" type="button" (click)="saveTask()">Сохранить</button>
+            <p class="result-message" *ngIf="resultMessage.length > 0">{{resultMessage}}</p>
         </form>
     </div>
 </main>

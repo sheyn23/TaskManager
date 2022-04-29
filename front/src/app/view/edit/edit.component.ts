@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { DtoTask } from 'src/app/share/models/DtoTask';
@@ -13,16 +14,17 @@ import { DataService } from 'src/app/share/services/data.service';
 })
 export class EditComponent implements OnInit, OnDestroy {
 
+  resultMessage = '';
   taskForm!: FormGroup;
   private newTask = false;
-  private taskId!: Guid;
   private navigationSubscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dataService: DataService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private location: Location
   ) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
@@ -40,9 +42,16 @@ export class EditComponent implements OnInit, OnDestroy {
     }
   }
 
-  initialiseInvites(): void {
+  saveTask() {
+    this.newTask ? this.addTask() : this.updateTask();
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  private initialiseInvites(): void {
     let taskId = this.route.snapshot.params['id'];
-    console.log(taskId);
 
     if (taskId === undefined) {
       this.newTask = true;
@@ -51,7 +60,6 @@ export class EditComponent implements OnInit, OnDestroy {
       this.newTask = false;
       this.getTask(taskId);
     }
-
   }
 
   private getTask(id: Guid) {
@@ -69,26 +77,30 @@ export class EditComponent implements OnInit, OnDestroy {
 
   private createTaskForm(): FormGroup {
     return this.fb.group({
+      id: new FormControl(),
       name: new FormControl('asdsad'),
       priority: new FormControl(''),
-      marks: new FormArray([]),
+      marks: new FormControl(),
       description: new FormControl(''),
     })
   }
 
-  saveTask() {
-    this.newTask ? this.addTask() : this.updateTask();
-  }
-
   private updateTask() {
-    this.dataService.update({ ...this.taskForm.getRawValue() }).subscribe((response: TaskManagerResponse<DtoTask>) => {
+    this.dataService.update({
+      ...this.taskForm.getRawValue(),
+      marks: JSON.stringify(this.taskForm.getRawValue().marks)
+    }).subscribe((response: TaskManagerResponse<DtoTask>) => {
       if (!!response) {
-        console.log('updated');
-
+        if (response.status) {
+          this.resultMessage = "Задача успешно обновлена!"
+        } else {
+          this.resultMessage = "Ошибка выполнения запроса..."
+        }
       } else {
-        alert("Ошибка выполнения запроса");
+        this.resultMessage = "Ошибка выполнения запроса..."
       }
     }, (error: { message: string }) => {
+      this.resultMessage = ""
       alert(error.message);
     });
   }
@@ -99,11 +111,16 @@ export class EditComponent implements OnInit, OnDestroy {
       marks: JSON.stringify(this.taskForm.getRawValue().marks)
     }).subscribe((response: TaskManagerResponse<DtoTask>) => {
       if (!!response) {
-        console.log('add');
+        if (response.status) {
+          this.router.navigate([`/task/${response.data.id}`])
+        } else {
+          this.resultMessage = "Ошибка выполнения запроса..."
+        }
       } else {
-        alert("Ошибка выполнения запроса");
+        this.resultMessage = "Ошибка выполнения запроса..."
       }
     }, (error: { message: string }) => {
+      this.resultMessage = ""
       alert(error.message);
     });
   }

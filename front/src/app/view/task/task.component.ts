@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { DtoTask } from 'src/app/share/models/DtoTask';
 import { Guid } from 'guid-typescript';
 import { DataService } from 'src/app/share/services/data.service';
@@ -18,7 +19,8 @@ export class TaskComponent implements OnInit, OnDestroy {
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
@@ -35,7 +37,17 @@ export class TaskComponent implements OnInit, OnDestroy {
     }
   }
 
-  initialiseInvites(): void {
+  deleteTask(): void {
+    this.dataService.delete(this.task.id).subscribe(() => {
+      this.router.navigate(['/manager'])
+    })
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  private initialiseInvites(): void {
     let taskId = this.route.snapshot.params['id'];
     this.getTask(taskId);
   }
@@ -51,12 +63,5 @@ export class TaskComponent implements OnInit, OnDestroy {
       }, (error: { message: string }) => {
         alert(error.message);
       });
-  }
-
-  deleteTask(): void {
-    this.dataService.delete(this.task.id).subscribe(() => {
-      console.log('was deleted!');
-      this.router.navigate(['/manager'])
-    })
   }
 }

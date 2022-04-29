@@ -27,7 +27,7 @@ export class DataService {
   }
 
   update(data: DtoTask): Observable<TaskManagerResponse<DtoTask>> {
-    return this.http.put<TaskManagerResponse<DtoTask>>(`${environment.apiUrl}/tasks/update`, { data: data });
+    return this.http.put<TaskManagerResponse<DtoTask>>(`${environment.apiUrl}/tasks/update`, data);
   }
 
   delete(id: Guid) {
