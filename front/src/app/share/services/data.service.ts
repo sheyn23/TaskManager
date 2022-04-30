@@ -1,11 +1,11 @@
+import { Observable } from 'rxjs';
+import { Guid } from 'guid-typescript';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { DtoTask } from '@models/DtoTask';
+import { DtoRequestTask } from '@models/DtoRequestTask';
+import { TaskManagerResponse } from '@models/TaskManagerResponse';
 import { environment } from 'src/environments/environment'
-import { TaskManagerResponse } from '../models/TaskManagerResponse';
-import { DtoTask } from '../models/DtoTask';
-import { Guid } from 'guid-typescript';
-import { DtoRequestTask } from '../models/DtoRequestTask';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,7 @@ export class DataService {
     return this.http.put<TaskManagerResponse<DtoTask>>(`${environment.apiUrl}/tasks/update`, data);
   }
 
-  delete(id: Guid) {
-    return this.http.delete(`${environment.apiUrl}/tasks/${id}`);
+  delete(id: Guid): Observable<TaskManagerResponse<void>> {
+    return this.http.delete<TaskManagerResponse<void>>(`${environment.apiUrl}/tasks/${id}`);
   }
 }

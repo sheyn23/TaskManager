@@ -1,17 +1,18 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { ManagerModule } from './view/manager/manager.module';
 import { AppRoutingModule } from './app-routing.module';
-import { EditModule } from './view/edit/edit.module';
-import { TaskModule } from './view/task/task.module';
-import { ErrorPageModule } from './view/error-page/error-page.module';
-
 import { AppComponent } from './app.component';
-import { DataService } from './share/services/data.service';
-import { HttpClientModule } from '@angular/common/http';
 
-import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { EditModule } from '@view/edit/edit.module';
+import { TaskModule } from '@view/task/task.module';
+import { ManagerModule } from '@view/manager/manager.module';
+import { ErrorPageModule } from '@view/error-page/error-page.module';
+
+import { DataService } from '@services/data.service';
 
 registerLocaleData(localeRu);
 

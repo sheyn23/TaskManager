@@ -1,35 +1,30 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { DtoTask } from 'src/app/share/models/DtoTask';
+import { Subscription } from 'rxjs';
 import { Guid } from 'guid-typescript';
-import { DataService } from 'src/app/share/services/data.service';
-import { TaskManagerResponse } from 'src/app/share/models/TaskManagerResponse';
+import { Location } from '@angular/common';
+import { Component, OnDestroy } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { DtoTask } from '@models/DtoTask';
+import { TaskManagerResponse } from '@models/TaskManagerResponse';
+import { DataService } from '@services/data.service';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.sass']
 })
-export class TaskComponent implements OnInit, OnDestroy {
+export class TaskComponent implements OnDestroy {
 
   task!: DtoTask;
-  private navigationSubscription;
+  private navigationSubscription!: Subscription;
 
   constructor(
-    private dataService: DataService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private location: Location
+    private readonly dataService: DataService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly location: Location
   ) {
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      if (e instanceof NavigationEnd) {
-        this.initialiseInvites();
-      }
-    });
+    this.setNavigationSubscription();
   }
-
-  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     if (this.navigationSubscription) {
@@ -38,13 +33,31 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   deleteTask(): void {
-    this.dataService.delete(this.task.id).subscribe(() => {
-      this.router.navigate(['/manager'])
-    })
+    this.dataService.delete(this.task.id).subscribe((response: TaskManagerResponse<void>) => {
+      if (!!response) {
+        if (response.status) {
+          this.router.navigate(['/manager'])
+        } else {
+          alert("Ошибка выполнения запроса")
+        }
+      } else {
+        alert("Ошибка выполнения запроса");
+      }
+    }, (error: { message: string }): void => {
+      alert(error.message);
+    });
   }
 
-  goBack() {
+  goBack(): void {
     this.location.back();
+  }
+
+  private setNavigationSubscription(): void {
+    this.navigationSubscription = this.router.events.subscribe((e: any): void => {
+      if (e instanceof NavigationEnd) {
+        this.initialiseInvites();
+      }
+    });
   }
 
   private initialiseInvites(): void {
@@ -52,15 +65,19 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.getTask(taskId);
   }
 
-  private getTask(id: Guid) {
+  private getTask(id: Guid): void {
     this.dataService.getTask(id)
-      .subscribe((response: TaskManagerResponse<DtoTask>) => {
+      .subscribe((response: TaskManagerResponse<DtoTask>): void => {
         if (!!response) {
-          this.task = response.data;
+          if (response.status) {
+            this.task = response.data;
+          } else {
+            alert("Ошибка выполнения запроса")
+          }
         } else {
           alert("Ошибка выполнения запроса");
         }
-      }, (error: { message: string }) => {
+      }, (error: { message: string }): void => {
         alert(error.message);
       });
   }

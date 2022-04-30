@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ErrorPageComponent } from './error-page.component';
+import { ErrorPageComponent } from '@view/error-page/error-page.component';
 
 @NgModule({
   declarations: [

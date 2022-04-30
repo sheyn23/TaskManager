@@ -52,7 +52,7 @@
     </aside>
     <section class="task-list">
         <button routerLink="/edit">Добавить задачу</button>
-        <div class="tasks" #tasksRef>
+        <div class="tasks">
             <app-task-card *ngFor="let task of tasks" [task]="task" [routerLink]="'/task/'+task.id"></app-task-card>
         </div>
     </section>

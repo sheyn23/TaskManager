@@ -19,7 +19,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return TaskResource::collection(Task::all());
+        return response()->json([
+            "status" => true,
+            "data" => TaskResource::collection(Task::all())
+        ])->setStatusCode(200);
     }
 
     /**
@@ -62,7 +65,10 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        return new TaskResource(Task::findOrfail($id));
+        return response()->json([
+            "status" => true,
+            "data" => new TaskResource(Task::findOrfail($id))
+        ])->setStatusCode(200);
     }
 
     /**
@@ -109,7 +115,10 @@ class TaskController extends Controller
     {
         $task->delete();
 
-        return response(null, \Illuminate\Http\Response::HTTP_NO_CONTENT);
+        return response()->json([
+            "status" => true,
+            "data" => \Illuminate\Http\Response::HTTP_NO_CONTENT
+        ])->setStatusCode(200);
     }
 
     /**

@@ -1,9 +1,9 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { DtoTask } from 'src/app/share/models/DtoTask';
-import { TaskManagerResponse } from 'src/app/share/models/TaskManagerResponse';
-import { DataService } from 'src/app/share/services/data.service';
+import { DtoTask } from '@models/DtoTask';
+import { TaskManagerResponse } from '@models/TaskManagerResponse';
+import { DataService } from '@services/data.service';
 
 @Component({
   selector: 'app-manager',
@@ -12,25 +12,27 @@ import { DataService } from 'src/app/share/services/data.service';
 })
 export class ManagerComponent implements OnInit {
 
-  @ViewChild('tasksRef') private tasksRef!: ElementRef;
-
   tasks: DtoTask[] = [];
   filterForm!: FormGroup;
-  private fetching: boolean = false;
+  private fetching = false;
 
   constructor(
-    private dataService: DataService,
-    private fb: FormBuilder
+    private readonly dataService: DataService,
+    private readonly fb: FormBuilder
   ) {
     this.filterForm = this.createFilterForm();
   }
 
   ngOnInit(): void {
     this.getTasks();
+    this.setFilterFormChangeSubscribtion();
+  }
 
+  private setFilterFormChangeSubscribtion(): void {
     this.filterForm.valueChanges.subscribe(() => {
       this.tasks = [];
-      this.getTasks()
+      this.fetching = false;
+      this.getTasks();
     });
   }
 
@@ -42,14 +44,14 @@ export class ManagerComponent implements OnInit {
     })
   }
 
-  private getTasks() {
+  private getTasks(): Observable<DtoTask[]> {
     let subject = new Subject<DtoTask[]>();
 
     this.dataService.getTasks({
       ...this.filterForm.getRawValue(),
       start: this.tasks.length,
       count: 15
-    }).subscribe((response: TaskManagerResponse<DtoTask[]>) => {
+    }).subscribe((response: TaskManagerResponse<DtoTask[]>): void => {
       if (!!response) {
         this.tasks.push(...response.data);
         subject.next(response.data);
@@ -63,14 +65,14 @@ export class ManagerComponent implements OnInit {
     return subject.asObservable();
   }
 
-  onCheckChange(event: any, checkGroup: string) {
+  onCheckChange(event: any, checkGroup: string): void {
     const formArray: FormArray = this.filterForm.get(checkGroup) as FormArray;
     if (event.target.checked) {
       formArray.push(new FormControl(event.target.value));
     }
     else {
       let i: number = 0;
-      formArray.controls.forEach((el: any) => {
+      formArray.controls.forEach((el: any): void => {
         if (el.value == event.target.value) {
           formArray.removeAt(i);
           return;
@@ -81,14 +83,14 @@ export class ManagerComponent implements OnInit {
   }
 
   @HostListener("window:scroll", ["$event"])
-  onWindowScroll() {
-    if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-      if (!this.fetching) {
-        this.fetching = true;
-        this.getTasks().subscribe((result: DtoTask[]) => {
+  onWindowScroll(): void {
+    if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight && !this.fetching) {
+      this.fetching = true;
+      this.getTasks().subscribe((result: DtoTask[]) => {
+        if (result.length > 0) {
           this.fetching = false;
-        })
-      }
+        }
+      })
     }
   }
 

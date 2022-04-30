@@ -17,13 +17,13 @@
             <p class="title">Приоритет</p>
             <p class="value">{{task?.priority}}</p>
         </div>
-        <div class="params">
+        <div class="params" *ngIf="task.marks && task.marks.length > 0">
             <p class="title">Отметки</p>
             <p class="value"><span *ngFor="let mark of task.marks">{{mark}}</span></p>
         </div>
-        <div class="params">
+        <div class="params" *ngIf="task.description && task.description.length > 0">
             <p class="title">Описание</p>
-            <p class="value">{{task?.description}}</p>
+            <p class="value">{{task.description}}</p>
         </div>
     </div>
 </main>

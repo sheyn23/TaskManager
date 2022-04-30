@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-error-page',
   templateUrl: './error-page.component.html',
   styleUrls: ['./error-page.component.sass']
 })
-export class ErrorPageComponent implements OnInit {
+export class ErrorPageComponent {
 
-  constructor() { }
+  constructor(
+    private readonly location: Location
+  ) { }
 
-  ngOnInit(): void {
+  goBack(): void {
+    this.location.back();
   }
-
 }

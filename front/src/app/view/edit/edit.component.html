@@ -5,6 +5,7 @@
             <div class="form-group">
                 <label>Название задачи</label> <br>
                 <input type="text" class="form-control name" formControlName="name">
+                <p class="validate-message" *ngIf="name?.errors?.['required']">Название обязательно для заполнения</p>
             </div>
             <div class="form-group">
                 <label>Приоритет</label> <br>
@@ -13,6 +14,8 @@
                     <option value="normal">normal</option>
                     <option value="high">high</option>
                 </select>
+                <p class="validate-message" *ngIf="priority?.errors?.['required']">Приоритет обязателен для заполнения
+                </p>
             </div>
             <div class="form-group">
                 <label>Название задачи</label> <br>
@@ -27,7 +30,7 @@
                 <textarea name="description" class="form-control description" formControlName="description"
                     id="description" rows="10"></textarea>
             </div>
-            <button class="save" type="button" (click)="saveTask()">Сохранить</button>
+            <button class="save" type="button" (click)="saveTask()" [disabled]="taskForm.invalid">Сохранить</button>
             <p class="result-message" *ngIf="resultMessage.length > 0">{{resultMessage}}</p>
         </form>
     </div>

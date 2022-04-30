@@ -37,6 +37,13 @@ main
 
                 &.description
                     width: 100%
+
+            p
+                &.validate-message
+                    font-size: 14px
+                    color: #f34949
+                    margin-top: 10px
+
         .save
             margin-bottom: 20px
             background: #0091dc
@@ -44,6 +51,10 @@ main
 
             &:hover
                 background: #0077b3
+
+            &:disabled, &[disabled]
+                background: #ededef
+                cursor: default
 
             @media screen and (max-width: 500px)
                 width: 100%

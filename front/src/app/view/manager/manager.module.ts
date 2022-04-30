@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import { TaskCardComponent } from 'src/app/components/task-card/task-card.component';
-import { ManagerComponent } from './manager.component';
 import { RouterModule } from '@angular/router';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TimeStatusPipe } from 'src/app/share/pipes/time-status.pipe';
+import { TimeStatusPipe } from '@pipes/time-status.pipe';
+import { ManagerComponent } from '@view/manager/manager.component';
+import { TaskCardComponent } from '@components/task-card/task-card.component';
 
 @NgModule({
   declarations: [

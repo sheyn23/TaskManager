@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EditComponent } from './edit.component';
-import { EditRoutingModule } from './edit-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditComponent } from '@view/edit/edit.component';
+import { EditRoutingModule } from '@view/edit/edit-routing.module';
 
 @NgModule({
   declarations: [

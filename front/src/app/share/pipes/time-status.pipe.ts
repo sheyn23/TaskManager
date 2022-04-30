@@ -21,7 +21,6 @@ export class TimeStatusPipe implements PipeTransform {
     let diffHour = Math.round(diffMin / 60);
     let diffDay = Math.round(diffHour / 24);
 
-    // форматирование
     year = year.toString().slice(-2);
     month = month < 10 ? '0' + month : month;
     hour = hour < 10 ? '0' + hour : hour;

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
                     ['marks' => ['research', 'development']],
                     ['marks' => ['development', 'design']],
                     ['marks' => ['research', 'development', 'design']],
+                    ['marks' => []],
                 ))
                 ->sequence(fn ($sequence) => ['name' => 'Задача № '.$sequence->index])
                 ->create();

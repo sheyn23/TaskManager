@@ -1,5 +1,3 @@
-import { Guid } from 'guid-typescript';
-
 export class DtoRequestTask {
 
     public sortedBy: "asc" | "desc";
